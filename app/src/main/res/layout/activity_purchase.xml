@@ -61,12 +61,13 @@
                 android:text="Enter Product Name"
                 android:textColor="@color/black" />
 
-            <TextView
+            <EditText
                 android:id="@+id/purchase_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:hint="Product name"
+                android:background="@drawable/textview_sell_purchase"
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:textSize="15dp" />
@@ -92,13 +93,14 @@
                     android:text="Price"
                     android:textColor="@color/black" />
 
-                <TextView
+                <EditText
                     android:id="@+id/purchase_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:hint="Price"
                     android:padding="10dp"
+                    android:background="@drawable/textview_sell_purchase"
                     android:textColor="@color/black"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -123,23 +125,25 @@
                     android:orientation="horizontal"
                     android:layout_margin="5dp">
 
-                    <TextView
+                    <EditText
                         android:id="@+id/purchase_unit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Unit"
                         android:layout_weight="1"
+                        android:background="@drawable/textview_sell_purchase"
                         android:padding="10dp"
                         android:textColor="@color/black"
                         android:textSize="15dp" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/purchase_add_unit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Add Unit"
                         android:layout_weight="1"
                         android:padding="10dp"
+                        android:background="@drawable/textview_sell_purchase"
                         android:textColor="@color/black"
                         android:textSize="15dp"
                         android:textColorHint="@color/orange"/>
@@ -165,13 +169,14 @@
                 android:text="Total Quantity"
                 android:textColor="@color/black" />
 
-            <TextView
+            <EditText
                 android:id="@+id/purchase_total_quantity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:hint="Quantity"
                 android:padding="10dp"
+                android:background="@drawable/textview_sell_purchase"
                 android:textColor="@color/black"
                 android:textSize="15dp" />
         </LinearLayout>

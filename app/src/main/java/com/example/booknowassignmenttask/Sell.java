@@ -36,6 +36,8 @@ public class Sell extends AppCompatActivity {
     Button save;
     int Price,Quantity;
     float Unit,TotalPrice;
+    final String TransactionType = "Sell";
+    DataStore dataStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,45 +72,49 @@ public class Sell extends AppCompatActivity {
             public void onClick(View v) {
 
                 calculateTotal();
-                // calling a method to post the data and passing our name and job.
-                postData(product.getText().toString(), price.getText().toString(),unit.getText().toString(),unitType.getText().toString(),total.getText().toString(),date.getText().toString(),time.getText().toString(),quantity.getText().toString());
+
+                //postData(product.getText().toString(), price.getText().toString(),unit.getText().toString(),unitType.getText().toString(),total.getText().toString(),date.getText().toString(),time.getText().toString(),quantity.getText().toString());
+
+                //Sending all data to a model class
+                dataStore = new DataStore(date.getText().toString(),time.getText().toString(),product.getText().toString(),price.getText().toString(),unit.getText().toString(),unitType.getText().toString(),total.getText().toString(),TransactionType,quantity.getText().toString());
+
+                //Getting data from model class and sending it to api in json packet
+                String uri = "http://9a79-2405-201-3017-1073-f192-7a77-1f7c-c47b.ngrok.io/api/creatTransaction";
+
+                Map<String, String> postParam= new HashMap<String, String>();
+                postParam.put("Product name", dataStore.ProductName);
+                postParam.put("Price", dataStore.Price);
+                postParam.put("Unit", dataStore.Unit);
+                postParam.put("Unit Type", dataStore.UnitType);
+                postParam.put("Total", dataStore.Total);
+                postParam.put("Date", dataStore.Date);
+                postParam.put("Time", dataStore.Time);
+                postParam.put("Quantity", dataStore.Quantity);
+
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, uri, new JSONObject(postParam), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("Tag", response.toString());
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Tag", error.getMessage());
+                    }
+                });
             }
         });
 
-        unitType.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        unitType.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 
-    private void postData(String product_name, String product_price, String Unit, String UnitType, String Total, String Date, String Time,String Quantity){
-
-        String uri = "http://9a79-2405-201-3017-1073-f192-7a77-1f7c-c47b.ngrok.io/api/creatTransaction";
-
-        Map<String, String> postParam= new HashMap<String, String>();
-        postParam.put("Product name", product_name);
-        postParam.put("Price", product_price);
-        postParam.put("Unit", Unit);
-        postParam.put("Unit Type", UnitType);
-        postParam.put("Total", Total);
-        postParam.put("Date", Date);
-        postParam.put("Time", Time);
-        postParam.put("Quantity", Quantity);
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, uri, new JSONObject(postParam), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("Tag", response.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Tag", error.getMessage());
-            }
-        });
-    }
+//    private void postData(String product_name, String product_price, String Unit, String UnitType, String Total, String Date, String Time,String Quantity){
+//    }
 
     private void calculateTotal(){
         Price = Integer.parseInt(price.getText().toString());
